@@ -260,36 +260,7 @@
             color: #fff;
         }
 
-        /* 底部導覽 */
-        .nav-bar {
-            position: fixed; 
-            bottom: 20px; 
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(247,246,237,0.95); /* 使用 bg-soft 的透明版 */
-            padding: 10px 25px; 
-            border-radius: 40px;
-            display: flex; 
-            gap: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
-            z-index: 1000;
-            border: 1px solid var(--soft-gold);
-        }
-
-        .nav-btn { 
-            font-size: 1.4rem; 
-            cursor: pointer; 
-            position: relative; 
-        }
-
-        #heart-val { 
-            position: absolute; 
-            top: -8px; 
-            right: -12px; 
-            font-size: 0.7rem; 
-            color: var(--deep-olive);
-        }
-
+        /* 音樂按鈕 */
         .music-toggle {
             position: fixed; 
             top: 20px; 
@@ -315,16 +286,6 @@
             from {transform: rotate(0deg);} 
             to {transform: rotate(360deg);} 
         }
-
-        #fw-canvas {
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
-            pointer-events: none; 
-            z-index: 9998;
-        }
     </style>
 </head>
 <body>
@@ -333,8 +294,6 @@
     <audio id="audioTrack" src="https://dn711300.ca.archive.org/0/items/soundcloud-382924121/Romantic_Piano_-_No_Copyright_Wedding_Background_Music_For_Videos_Films-382924121.mp3" loop>
         <source src="https://cdn.pixabay.com/audio/2022/11/22/audio_febc508520.mp3" type="audio/mpeg">
     </audio>
-
-    <canvas id="fw-canvas"></canvas>
 
     <div id="envelope-wrapper" onclick="startInvitation()">
         <div class="envelope" id="envBox">
@@ -425,13 +384,6 @@
             </div>
         </section>
     </main>
-
-    <div class="nav-bar">
-        <div class="nav-btn" onclick="scrollToSec('sec-rsvp')">📝</div>
-        <div class="nav-btn" onclick="triggerFW()">🎆</div>
-        <div class="nav-btn" onclick="spawnHeart()">💕<span id="heart-val">0</span></div>
-        <div class="nav-btn" onclick="alert('感謝您的心意！\\\\n紅包請於婚宴現場交付給禮金台，\\\\n期待那天與您見面！💕')">🧧</div>
-    </div>
 
     <script>
         // 自動播放音樂（需用戶互動後才能播放）
@@ -537,57 +489,6 @@
                 a.pause(); 
                 b.classList.remove('rotating'); 
             }
-        }
-
-        // 7. 愛心與煙火
-        let hCount = 0;
-        function spawnHeart() {
-            hCount++;
-            document.getElementById('heart-val').innerText = hCount;
-            const h = document.createElement('div');
-            h.innerHTML = '❤';
-            h.style.cssText = `position:fixed; bottom:70px; left:50%; color:#ff4d6d; pointer-events:none; transition:1.5s ease-out; z-index:2000; font-size:24px;`;
-            document.body.appendChild(h);
-            setTimeout(() => {
-                h.style.transform = `translate(${(Math.random()-0.5)*150}px, -300px)`;
-                h.style.opacity = '0';
-            }, 50);
-            setTimeout(() => h.remove(), 1600);
-        }
-
-        const canvas = document.getElementById('fw-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        function triggerFW() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            const colors = ['#FFD700', '#FF69B4', '#00FBFF', '#FF4500', '#FFFFFF'];
-            for(let i=0; i<60; i++) {
-                particles.push({
-                    x: canvas.width / 2, 
-                    y: canvas.height / 2,
-                    vx: (Math.random()-0.5) * 12, 
-                    vy: (Math.random()-0.5) * 12,
-                    color: colors[Math.floor(Math.random()*colors.length)], 
-                    alpha: 1
-                });
-            }
-            requestAnimationFrame(updateFW);
-        }
-        function updateFW() {
-            ctx.clearRect(0,0, canvas.width, canvas.height);
-            particles.forEach((p, i) => {
-                p.x += p.vx; 
-                p.y += p.vy; 
-                p.alpha -= 0.015;
-                ctx.globalAlpha = p.alpha; 
-                ctx.fillStyle = p.color;
-                ctx.beginPath(); 
-                ctx.arc(p.x, p.y, 3, 0, Math.PI*2); 
-                ctx.fill();
-                if(p.alpha <= 0) particles.splice(i, 1);
-            });
-            if(particles.length > 0) requestAnimationFrame(updateFW);
         }
     </script>
 </body>
