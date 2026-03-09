@@ -234,7 +234,7 @@
 
     <div class="music-toggle" id="mBtn" onclick="handleMusic()">🎵</div>
     <audio id="audioTrack" loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/audio/2022/11/22/audio_febc508520.mp3" type="audio/mpeg">
     </audio>
 
     <canvas id="fw-canvas"></canvas>
@@ -338,7 +338,7 @@
     </div>
 
     <script>
-        // 1. 初始化與滾動監測
+        // 自動播放音樂（需用戶互動後才能播放）         window.addEventListener('load', () => {             var a = document.getElementById('audioTrack');             var b = document.getElementById('mBtn');             a.play().then(() => { b.classList.add('rotating'); }).catch(() => {});         });         // 1. 初始化與滾動監測
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); });
         }, { threshold: 0.1 });
