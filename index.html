@@ -8,11 +8,13 @@
     
     <style>
         :root {
-            --primary-gold: #d4af37;
-            --rose-gold: #f4c2c2;
-            --champagne: #f7e7ce;
-            --bg-soft: #fffafa;
-            --text-dark: #4a4a4a;
+            /* 新主色系 */
+            --primary-gold: #C9A466;  /* 主要金色 */
+            --soft-gold:   #EBDDB5;  /* 淺金米色 */
+            --bg-soft:     #F7F6ED;  /* 頁面底色 */
+            --soft-green:  #DDE7A9;  /* 柔和淡綠 */
+            --deep-olive:  #A6A35D;  /* 深綠金強調 */
+            --text-dark:   #4a4a4a;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -25,7 +27,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* 1. 開場信封動畫 */
+        /* 1. 開場信封動畫（維持原本粉色系，不改） */
         #envelope-wrapper {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -41,7 +43,7 @@
             position: relative;
             width: 280px;
             height: 180px;
-            background: #f8d7da;
+            background: #f8d7da; /* 原色不改 */
             cursor: pointer;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
@@ -52,7 +54,7 @@
             top: 0; left: 0;
             border-left: 140px solid transparent;
             border-right: 140px solid transparent;
-            border-top: 100px solid #f1aeb5;
+            border-top: 100px solid #f1aeb5; /* 原色不改 */
             transform-origin: top;
             transition: transform 0.5s;
             z-index: 2;
@@ -64,7 +66,7 @@
             position: absolute;
             top: 75px; left: 125px;
             font-size: 30px;
-            color: #d63384;
+            color: #d63384; /* 原色不改 */
             z-index: 3;
             animation: pulse 1.5s infinite;
         }
@@ -91,7 +93,7 @@
 
         section.show { opacity: 1; transform: translateY(0); }
 
-        /* 封面 */
+        /* 封面（第一頁文字仍用金色，但背景依 body 保持柔和米色） */
         .names {
             font-family: 'Great Vibes', cursive;
             font-size: 3.5rem;
@@ -114,7 +116,7 @@
             padding: 10px 30px;
         }
 
-        /* 花瓣 */
+        /* 花瓣（維持粉色視覺，跟信封一致） */
         .petal {
             position: absolute;
             background: #ffd1dc;
@@ -134,30 +136,37 @@
         .photo-box {
             width: 100%; max-width: 350px;
             height: 250px;
-            background: linear-gradient(45deg, var(--champagne), #fff);
+            background: linear-gradient(45deg, var(--soft-gold), #fff);
             margin: 15px auto;
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--soft-gold);
         }
 
         .info-card {
-            background: #fff;
+            background: #ffffff;
             padding: 40px 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid var(--champagne);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            border: 1px solid var(--soft-gold);
             line-height: 1.8;
             width: 100%;
             max-width: 500px;
         }
 
+        /* 小區塊標題或強調文字可用深綠金 */
+        .info-card h2 {
+            color: var(--primary-gold);
+        }
+
         .poem {
             writing-mode: vertical-rl;
             font-size: 1.8rem;
-            color: var(--primary-gold);
+            color: var(--deep-olive);
             font-weight: bold;
             letter-spacing: 8px;
-            height: auto; white-space: nowrap;
+            height: auto; 
+            white-space: nowrap;
         }
 
         /* 表單樣式 */
@@ -166,24 +175,47 @@
             margin-top: 30px;
         }
 
-        label { display: block; margin-top: 15px; font-weight: bold; }
+        label { 
+            display: block; 
+            margin-top: 15px; 
+            font-weight: bold; 
+            color: var(--deep-olive);
+        }
 
         input, textarea, select {
-            width: 100%; padding: 12px; margin-top: 5px;
-            border: 1px solid #ddd; border-radius: 8px;
+            width: 100%; 
+            padding: 12px; 
+            margin-top: 5px;
+            border: 1px solid var(--soft-gold); 
+            border-radius: 8px;
             font-family: inherit;
+            background-color: #fff;
         }
 
         .btn-gold {
             background: var(--primary-gold);
-            color: white; border: none;
-            padding: 15px 40px; border-radius: 30px;
-            cursor: pointer; font-size: 1rem; width: 100%; margin-top: 20px;
+            color: white; 
+            border: none;
+            padding: 15px 40px; 
+            border-radius: 30px;
+            cursor: pointer; 
+            font-size: 1rem; 
+            width: 100%; 
+            margin-top: 20px;
             transition: 0.3s;
         }
 
+        .btn-gold:hover {
+            background: var(--deep-olive);
+        }
+
         /* 倒數 */
-        .timer { display: flex; gap: 10px; margin-top: 20px; }
+        .timer { 
+            display: flex; 
+            gap: 10px; 
+            margin-top: 20px; 
+        }
+
         .t-unit {
             background: var(--primary-gold);
             color: #fff;
@@ -191,42 +223,106 @@
             border-radius: 8px;
             min-width: 65px;
         }
-        .t-num { display: block; font-size: 1.5rem; font-weight: bold; }
+
+        .t-num { 
+            display: block; 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+        }
 
         /* 地圖 */
         .map-container {
-            width: 100%; max-width: 500px; height: 300px;
-            border-radius: 15px; overflow: hidden;
+            width: 100%; 
+            max-width: 500px; 
+            height: 300px;
+            border-radius: 15px; 
+            overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             margin-top: 20px;
+            background: #fff;
+            border: 1px solid var(--soft-gold);
+        }
+
+        .map-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background-color: var(--soft-green);
+            color: var(--deep-olive);
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .map-button:hover {
+            background-color: var(--deep-olive);
+            color: #fff;
         }
 
         /* 底部導覽 */
         .nav-bar {
-            position: fixed; bottom: 20px; left: 50%;
+            position: fixed; 
+            bottom: 20px; 
+            left: 50%;
             transform: translateX(-50%);
-            background: rgba(255,255,255,0.9);
-            padding: 10px 25px; border-radius: 40px;
-            display: flex; gap: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background: rgba(247,246,237,0.95); /* 使用 bg-soft 的透明版 */
+            padding: 10px 25px; 
+            border-radius: 40px;
+            display: flex; 
+            gap: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
             z-index: 1000;
+            border: 1px solid var(--soft-gold);
         }
-        .nav-btn { font-size: 1.4rem; cursor: pointer; position: relative; }
-        #heart-val { position: absolute; top: -8px; right: -12px; font-size: 0.7rem; color: red;}
+
+        .nav-btn { 
+            font-size: 1.4rem; 
+            cursor: pointer; 
+            position: relative; 
+        }
+
+        #heart-val { 
+            position: absolute; 
+            top: -8px; 
+            right: -12px; 
+            font-size: 0.7rem; 
+            color: var(--deep-olive);
+        }
 
         .music-toggle {
-            position: fixed; top: 20px; right: 20px;
-            width: 40px; height: 40px;
-            background: #fff; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            cursor: pointer; z-index: 1001; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed; 
+            top: 20px; 
+            right: 20px;
+            width: 40px; 
+            height: 40px;
+            background: #fff; 
+            border-radius: 50%;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            cursor: pointer; 
+            z-index: 1001; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid var(--soft-gold);
         }
-        .rotating { animation: rot 3s linear infinite; }
-        @keyframes rot { from {transform: rotate(0deg);} to {transform: rotate(360deg);} }
+
+        .rotating { 
+            animation: rot 3s linear infinite; 
+        }
+
+        @keyframes rot { 
+            from {transform: rotate(0deg);} 
+            to {transform: rotate(360deg);} 
+        }
 
         #fw-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 9998;
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            pointer-events: none; 
+            z-index: 9998;
         }
     </style>
 </head>
@@ -267,7 +363,7 @@
 
         <section id="sec-info">
             <div class="info-card">
-                <h2 style="color:var(--primary-gold); margin-bottom:20px;">婚禮資訊</h2>
+                <h2 style="margin-bottom:20px;">婚禮資訊</h2>
                 <div style="text-align: left; margin-bottom: 20px;">
                     <p>🕒 <strong>10:00</strong> 開放入場</p>
                     <p>⛪ <strong>11:00</strong> 證婚儀式</p>
@@ -277,40 +373,39 @@
                 <p>📍 <strong>暖居日穀</strong></p>
                 <p style="color:#888;">台中市北屯區松竹路一段3號</p>
                 
-<div class="map-container">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3639.9095592137087!2d120.7299703!3d24.1749044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34691930ddbe73b5%3A0xe9019e28fe9eeef1!2z5pqW5bGF5pel56mAL-WPsOS4reWpmuemri_nvo7lvI_lqZrnpq4v5oi25aSW5ama56auL-WPsOS4reWklueHtC_lhazlj7jogZrppJAv5pel5byP56mA5YCJL-aKk-WRqOa0vuWwjQ!5e0!3m2!1szh-TW!2stw!4v1773033816775!5m2!1szh-TW!2stw" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3639.9095592137087!2d120.7299703!3d24.1749044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34691930ddbe73b5%3A0xe9019e28fe9eeef1!2z5pqW5bGF5pel56mAL-WPsOS4reWpmuemri_nvo7lvI_lqZrnpq4v5oi25aSW5ama56auL-WPsOS4reWklueHtC_lhazlj7jogZrppJAv5pel5byP56mA5YCJL-aKk-WRqOa0vuWwjQ!5e0!3m2!1szh-TW!2stw!4v1773033816775!5m2!1szh-TW!2stw" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-    <div class="map-info" style="text-align: center; margin-top: 15px;">
-        <p class="address-text">台中市北屯區松竹路一段3號（暖居日穀）</p>
-        <button class="map-button" onclick="window.open('https://maps.google.com/?q=台中市北屯區松竹路一段3號', '_blank')">
-            查看地圖
-        </button>
-    </div>
-</div>
+                    <div class="map-info" style="text-align: center; margin-top: 15px; padding: 0 10px 15px 10px;">
+                        <p class="address-text">台中市北屯區松竹路一段3號（暖居日穀）</p>
+                        <button class="map-button" onclick="window.open('https://maps.google.com/?q=台中市北屯區松竹路一段3號', '_blank')">
+                            查看地圖
+                        </button>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="sec-rsvp">
             <div class="info-card">
-                <h2 style="color:var(--primary-gold);">若願意出席，請填表單</h2>
+                <h2>若願意出席，請填表單</h2>
                 <div class="rsvp-form" id="rsvp-container">
                     <label>賓客姓名</label>
                     <input type="text" id="rsvp-name" placeholder="請輸入姓名">
 
-                    
                     <label>出席人數</label>
                     <input type="number" id="rsvp-count" value="1" min="0">
                     
                     <button class="btn-gold" onclick="sendRSVP()">送出回覆</button>
                 </div>
-                <div id="rsvp-thanks" style="display:none; margin-top:20px; font-weight:bold; color:var(--primary-gold);">
+                <div id="rsvp-thanks" style="display:none; margin-top:20px; font-weight:bold; color:var(--deep-olive);">
                     感謝您的回覆！我們期待與您相見 💕
                 </div>
             </div>
         </section>
 
         <section id="sec-time">
-            <h3>幸福倒數 Countdown</h3>
+            <h3 style="color:var(--deep-olive);">幸福倒數 Countdown</h3>
             <div class="timer">
                 <div class="t-unit"><span id="d-val" class="t-num">00</span>天</div>
                 <div class="t-unit"><span id="h-val" class="t-num">00</span>時</div>
@@ -320,7 +415,7 @@
         </section>
 
         <section id="sec-guest">
-            <h2 style="margin-bottom:20px;">祝福留言</h2>
+            <h2 style="margin-bottom:20px; color:var(--primary-gold);">祝福留言</h2>
             <div class="info-card" style="text-align: center;">
                 <input type="text" id="uName" placeholder="您的稱呼">
                 <textarea id="uMsg" rows="3" placeholder="請留下對宇杰與旻瑄的祝福..."></textarea>
@@ -334,13 +429,24 @@
         <div class="nav-btn" onclick="scrollToSec('sec-rsvp')">📝</div>
         <div class="nav-btn" onclick="triggerFW()">🎆</div>
         <div class="nav-btn" onclick="spawnHeart()">💕<span id="heart-val">0</span></div>
-        <div class="nav-btn" onclick="alert('感謝您的心意！\n紅包請於婚宴現場交付給禮金台，\n期待那天與您見面！💕')">🧧</div>
+        <div class="nav-btn" onclick="alert('感謝您的心意！\\n紅包請於婚宴現場交付給禮金台，\\n期待那天與您見面！💕')">🧧</div>
     </div>
 
     <script>
-        // 自動播放音樂（需用戶互動後才能播放）         window.addEventListener('load', () => {             var a = document.getElementById('audioTrack');             var b = document.getElementById('mBtn');             a.play().then(() => { b.classList.add('rotating'); }).catch(() => {});         });         // 1. 初始化與滾動監測
+        // 自動播放音樂（需用戶互動後才能播放）
+        window.addEventListener('load', () => {
+            var a = document.getElementById('audioTrack');
+            var b = document.getElementById('mBtn');
+            a.play().then(() => { 
+                b.classList.add('rotating'); 
+            }).catch(() => {});
+        });
+
+        // 1. 初始化與滾動監測
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); });
+            entries.forEach(e => { 
+                if(e.isIntersecting) e.target.classList.add('show'); 
+            });
         }, { threshold: 0.1 });
         document.querySelectorAll('section').forEach(s => observer.observe(s));
 
@@ -350,7 +456,10 @@
 
         // 2. 開場
         function startInvitation() {
-            document.getElementById('envBox').classList.add('open'); var a=document.getElementById('audioTrack'); a.play(); document.getElementById('mBtn').classList.add('rotating');
+            document.getElementById('envBox').classList.add('open'); 
+            var a=document.getElementById('audioTrack'); 
+            a.play(); 
+            document.getElementById('mBtn').classList.add('rotating');
             setTimeout(() => {
                 document.getElementById('envelope-wrapper').style.transform = 'translateY(-100%)';
                 initPetals();
@@ -371,7 +480,7 @@
             }
         }
 
-        // 3. 倒數計時 (更新至 2026/06/20)
+        // 3. 倒數計時 (2026/06/20)
         const target = new Date("2026/06/20 12:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -407,7 +516,11 @@
         function renderMsgs() {
             const box = document.getElementById('msg-display');
             const data = JSON.parse(localStorage.getItem('wedding_msgs_new') || '[]');
-            box.innerHTML = data.map(i => `<p style="margin-bottom:8px; border-bottom:1px dashed #eee; padding-bottom:5px;"><strong>${i.n}：</strong>${i.m}</p>`).join('');
+            box.innerHTML = data.map(i => 
+                `<p style="margin-bottom:8px; border-bottom:1px dashed #eee; padding-bottom:5px;">
+                    <strong>${i.n}：</strong>${i.m}
+                </p>`
+            ).join('');
         }
         renderMsgs();
 
@@ -415,8 +528,13 @@
         function handleMusic() {
             const a = document.getElementById('audioTrack');
             const b = document.getElementById('mBtn');
-            if(a.paused) { a.play(); b.classList.add('rotating'); } 
-            else { a.pause(); b.classList.remove('rotating'); }
+            if(a.paused) { 
+                a.play(); 
+                b.classList.add('rotating'); 
+            } else { 
+                a.pause(); 
+                b.classList.remove('rotating'); 
+            }
         }
 
         // 7. 愛心與煙火
@@ -444,9 +562,12 @@
             const colors = ['#FFD700', '#FF69B4', '#00FBFF', '#FF4500', '#FFFFFF'];
             for(let i=0; i<60; i++) {
                 particles.push({
-                    x: canvas.width / 2, y: canvas.height / 2,
-                    vx: (Math.random()-0.5) * 12, vy: (Math.random()-0.5) * 12,
-                    color: colors[Math.floor(Math.random()*colors.length)], alpha: 1
+                    x: canvas.width / 2, 
+                    y: canvas.height / 2,
+                    vx: (Math.random()-0.5) * 12, 
+                    vy: (Math.random()-0.5) * 12,
+                    color: colors[Math.floor(Math.random()*colors.length)], 
+                    alpha: 1
                 });
             }
             requestAnimationFrame(updateFW);
@@ -454,9 +575,14 @@
         function updateFW() {
             ctx.clearRect(0,0, canvas.width, canvas.height);
             particles.forEach((p, i) => {
-                p.x += p.vx; p.y += p.vy; p.alpha -= 0.015;
-                ctx.globalAlpha = p.alpha; ctx.fillStyle = p.color;
-                ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, Math.PI*2); ctx.fill();
+                p.x += p.vx; 
+                p.y += p.vy; 
+                p.alpha -= 0.015;
+                ctx.globalAlpha = p.alpha; 
+                ctx.fillStyle = p.color;
+                ctx.beginPath(); 
+                ctx.arc(p.x, p.y, 3, 0, Math.PI*2); 
+                ctx.fill();
                 if(p.alpha <= 0) particles.splice(i, 1);
             });
             if(particles.length > 0) requestAnimationFrame(updateFW);
