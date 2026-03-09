@@ -120,8 +120,7 @@
         .petal {
             position: absolute;
             top: -50px;
-            /* 將 border-radius 改為玫瑰花瓣的形狀 */
-            border-radius: 50% 0 50% 50%;
+            border-radius: 150% 0 150% 0;
             pointer-events: none;
             z-index: 10;
             animation: petalFall linear infinite;
@@ -437,8 +436,8 @@
                 p.style.background = colors[Math.floor(Math.random() * colors.length)];
                 
                 // 設定飄落時間為 8 到 14 秒之間，讓速度變慢
-                p.style.animationDuration = (Math.random() * 6 + 8) + 's';
-                p.style.animationDelay = Math.random() * 5 + 's';
+                p.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                p.style.animationDelay = Math.random() * 7 + 's';
                 home.appendChild(p);
             }
         }
