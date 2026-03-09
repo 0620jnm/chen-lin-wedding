@@ -116,9 +116,10 @@
             padding: 10px 30px;
         }
 
-        /* 花瓣（維持粉色視覺，跟信封一致） */
+        /* 花瓣（維持粉色視覺，設定從頂部飄下） */
         .petal {
             position: absolute;
+            top: -50px;
             background: #ffd1dc;
             border-radius: 150% 0 150% 0;
             pointer-events: none;
@@ -127,9 +128,9 @@
         }
 
         @keyframes petalFall {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
             10% { opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(120vh) rotate(360deg); opacity: 0; }
         }
 
         /* 照片與資訊卡 */
@@ -429,7 +430,7 @@
         <div class="nav-btn" onclick="scrollToSec('sec-rsvp')">📝</div>
         <div class="nav-btn" onclick="triggerFW()">🎆</div>
         <div class="nav-btn" onclick="spawnHeart()">💕<span id="heart-val">0</span></div>
-        <div class="nav-btn" onclick="alert('感謝您的心意！\\n紅包請於婚宴現場交付給禮金台，\\n期待那天與您見面！💕')">🧧</div>
+        <div class="nav-btn" onclick="alert('感謝您的心意！\\\\n紅包請於婚宴現場交付給禮金台，\\\\n期待那天與您見面！💕')">🧧</div>
     </div>
 
     <script>
@@ -474,7 +475,8 @@
                 p.style.left = Math.random() * 100 + 'vw';
                 p.style.width = (Math.random()*12 + 8) + 'px';
                 p.style.height = p.style.width;
-                p.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                // 設定飄落時間為 8 到 14 秒之間，讓速度變慢
+                p.style.animationDuration = (Math.random() * 6 + 8) + 's';
                 p.style.animationDelay = Math.random() * 5 + 's';
                 home.appendChild(p);
             }
