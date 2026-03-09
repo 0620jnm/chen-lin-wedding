@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHEN & LIN Wedding Invitation</title>
+    <title>JAY & MICHELLE 婚禮邀約</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CSS 樣式區 --- */
         :root {
             --primary-gold: #d4af37;
             --rose-gold: #f4c2c2;
@@ -83,7 +82,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 60px 20px;
+            padding: 80px 20px;
             text-align: center;
             opacity: 0;
             transform: translateY(30px);
@@ -95,18 +94,24 @@
         /* 封面 */
         .names {
             font-family: 'Great Vibes', cursive;
-            font-size: 4.5rem;
+            font-size: 3.5rem;
             color: var(--primary-gold);
             margin-bottom: 10px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .ch-names {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
         }
 
         .wedding-date {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             letter-spacing: 5px;
             border-top: 1px solid var(--primary-gold);
             border-bottom: 1px solid var(--primary-gold);
-            padding: 10px 40px;
+            padding: 10px 30px;
         }
 
         /* 花瓣 */
@@ -141,7 +146,9 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             border: 1px solid var(--champagne);
-            line-height: 2;
+            line-height: 1.8;
+            width: 100%;
+            max-width: 500px;
         }
 
         .poem {
@@ -151,6 +158,28 @@
             font-weight: bold;
             letter-spacing: 8px;
             height: 350px;
+        }
+
+        /* 表單樣式 */
+        .rsvp-form {
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        label { display: block; margin-top: 15px; font-weight: bold; }
+
+        input, textarea, select {
+            width: 100%; padding: 12px; margin-top: 5px;
+            border: 1px solid #ddd; border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .btn-gold {
+            background: var(--primary-gold);
+            color: white; border: none;
+            padding: 15px 40px; border-radius: 30px;
+            cursor: pointer; font-size: 1rem; width: 100%; margin-top: 20px;
+            transition: 0.3s;
         }
 
         /* 倒數 */
@@ -164,23 +193,12 @@
         }
         .t-num { display: block; font-size: 1.5rem; font-weight: bold; }
 
-        /* 留言板 */
-        .guestbook { width: 100%; max-width: 450px; }
-        input, textarea {
-            width: 100%; padding: 12px; margin-bottom: 10px;
-            border: 1px solid #ddd; border-radius: 5px;
-            font-family: inherit;
-        }
-        .btn-send {
-            background: var(--primary-gold);
-            color: white; border: none;
-            padding: 12px 30px; border-radius: 25px;
-            cursor: pointer; font-size: 1rem;
-        }
-
-        #msg-display {
-            margin-top: 25px; text-align: left;
-            max-height: 250px; overflow-y: auto;
+        /* 地圖 */
+        .map-container {
+            width: 100%; max-width: 500px; height: 300px;
+            border-radius: 15px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: 20px;
         }
 
         /* 底部導覽 */
@@ -189,30 +207,25 @@
             transform: translateX(-50%);
             background: rgba(255,255,255,0.9);
             padding: 10px 25px; border-radius: 40px;
-            display: flex; gap: 25px;
+            display: flex; gap: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             z-index: 1000;
         }
-        .nav-btn { font-size: 1.5rem; cursor: pointer; position: relative; transition: 0.2s; }
-        .nav-btn:active { transform: scale(0.8); }
-        #heart-val { position: absolute; top: -8px; right: -12px; font-size: 0.7rem; color: red; font-weight: bold;}
+        .nav-btn { font-size: 1.4rem; cursor: pointer; position: relative; }
+        #heart-val { position: absolute; top: -8px; right: -12px; font-size: 0.7rem; color: red;}
 
-        /* 音樂按鈕 */
         .music-toggle {
             position: fixed; top: 20px; right: 20px;
             width: 40px; height: 40px;
             background: #fff; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1001;
+            cursor: pointer; z-index: 1001; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .rotating { animation: rot 3s linear infinite; }
         @keyframes rot { from {transform: rotate(0deg);} to {transform: rotate(360deg);} }
 
-        /* 煙火畫布 */
         #fw-canvas {
-            position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 9998;
         }
     </style>
@@ -229,19 +242,20 @@
     <div id="envelope-wrapper" onclick="startInvitation()">
         <div class="envelope" id="envBox">
             <div class="heart-seal">❤</div>
-            <p style="position:absolute; bottom:-50px; width:100%; text-align:center; color:#999;">點擊開啟幸福</p>
+            <p style="position:absolute; bottom:-50px; width:100%; text-align:center; color:#999;">點擊開啟幸福邀約</p>
         </div>
     </div>
 
     <main id="app-content">
         <section id="sec-home">
-            <div class="names">CHEN & LIN</div>
-            <div class="wedding-date">2026 . 05 . 30</div>
-            <p style="margin-top:30px; color:var(--primary-gold); letter-spacing:2px;">我們結婚了</p>
+            <div class="names">Jay & Michelle</div>
+            <div class="ch-names">蔡宇杰 & 陳旻瑄</div>
+            <div class="wedding-date">2026 . 06 . 20</div>
+            <p style="margin-top:30px; color:var(--primary-gold); letter-spacing:2px;">誠摯邀請您見證我們的幸福</p>
         </section>
 
         <section id="sec-pics">
-            <h2 style="color:var(--primary-gold); margin-bottom:20px;">Sweet Memories</h2>
+            <h2 style="color:var(--primary-gold); margin-bottom:20px;">Memories</h2>
             <div class="photo-box"></div>
             <div class="photo-box"></div>
             <div class="photo-box"></div>
@@ -253,16 +267,51 @@
 
         <section id="sec-info">
             <div class="info-card">
-                <h2 style="color:var(--primary-gold); margin-bottom:15px;">婚宴邀約</h2>
-                <p><strong>日期：</strong>2026年05月30日 (六)</p>
-                <p><strong>時間：</strong>中午 12:00 入席</p>
-                <p><strong>地點：</strong>台中金典酒店</p>
-                <p style="font-size:0.9rem; color:#888;">台中市西區健行路1049號</p>
+                <h2 style="color:var(--primary-gold); margin-bottom:20px;">婚禮資訊</h2>
+                <div style="text-align: left; margin-bottom: 20px;">
+                    <p>🕒 <strong>10:00</strong> 開放入場</p>
+                    <p>⛪ <strong>11:00</strong> 證婚儀式</p>
+                    <p>🍽️ <strong>12:00</strong> 準時開席</p>
+                </div>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+                <p>📍 <strong>暖居日穀</strong></p>
+                <p style="color:#888;">台中市北屯區松竹路一段3號</p>
+                
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1m3!1d3639.8655845233177!2d120.7068571!3d24.1764669!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346917f699047b39%3A0xc6879857d427741e!2z5pqW5bGF5pel56穀!5e0!3m2!1szh-TW!2stw!4v1715424000000!5m2!1szh-TW!2stw" 
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-rsvp">
+            <div class="info-card">
+                <h2 style="color:var(--primary-gold);">RSVP 出席回覆</h2>
+                <div class="rsvp-form" id="rsvp-container">
+                    <label>賓客姓名</label>
+                    <input type="text" id="rsvp-name" placeholder="請輸入姓名">
+                    
+                    <label>是否出席</label>
+                    <select id="rsvp-status">
+                        <option value="yes">願意參加，見證幸福</option>
+                        <option value="no">無法出席，遙寄祝福</option>
+                    </select>
+                    
+                    <label>出席人數</label>
+                    <input type="number" id="rsvp-count" value="1" min="0">
+                    
+                    <button class="btn-gold" onclick="sendRSVP()">送出回覆</button>
+                </div>
+                <div id="rsvp-thanks" style="display:none; margin-top:20px; font-weight:bold; color:var(--primary-gold);">
+                    感謝您的回覆！我們期待與您相見 💕
+                </div>
             </div>
         </section>
 
         <section id="sec-time">
-            <h3>幸福倒數</h3>
+            <h3>幸福倒數 Countdown</h3>
             <div class="timer">
                 <div class="t-unit"><span id="d-val" class="t-num">00</span>天</div>
                 <div class="t-unit"><span id="h-val" class="t-num">00</span>時</div>
@@ -273,32 +322,34 @@
 
         <section id="sec-guest">
             <h2 style="margin-bottom:20px;">祝福留言</h2>
-            <div class="guestbook">
+            <div class="info-card" style="text-align: center;">
                 <input type="text" id="uName" placeholder="您的稱呼">
-                <textarea id="uMsg" rows="3" placeholder="請輸入對新人的祝福..."></textarea>
-                <button class="btn-send" onclick="submitMsg()">送出祝福</button>
-                <div id="msg-display"></div>
+                <textarea id="uMsg" rows="3" placeholder="請留下對宇杰與旻瑄的祝福..."></textarea>
+                <button class="btn-gold" onclick="submitMsg()">送出祝福</button>
+                <div id="msg-display" style="margin-top:20px; text-align: left; max-height: 200px; overflow-y: auto;"></div>
             </div>
         </section>
     </main>
 
     <div class="nav-bar">
-        <div class="nav-btn" onclick="document.getElementById('sec-guest').scrollIntoView({behavior:'smooth'})">💬</div>
+        <div class="nav-btn" onclick="scrollToSec('sec-rsvp')">📝</div>
         <div class="nav-btn" onclick="triggerFW()">🎆</div>
         <div class="nav-btn" onclick="spawnHeart()">💕<span id="heart-val">0</span></div>
         <div class="nav-btn" onclick="alert('感謝您的心意！\n紅包請於婚宴現場交付給禮金台，\n期待那天與您見面！💕')">🧧</div>
     </div>
 
     <script>
-        /* --- JavaScript 邏輯區 --- */
-
-        // 1. 初始化捲動監測
+        // 1. 初始化與滾動監測
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('section').forEach(s => observer.observe(s));
 
-        // 2. 開場與花瓣
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 2. 開場
         function startInvitation() {
             document.getElementById('envBox').classList.add('open');
             setTimeout(() => {
@@ -313,16 +364,16 @@
                 const p = document.createElement('div');
                 p.className = 'petal';
                 p.style.left = Math.random() * 100 + 'vw';
-                const size = Math.random() * 12 + 8;
-                p.style.width = size + 'px'; p.style.height = size + 'px';
+                p.style.width = (Math.random()*12 + 8) + 'px';
+                p.style.height = p.style.width;
                 p.style.animationDuration = (Math.random() * 3 + 3) + 's';
                 p.style.animationDelay = Math.random() * 5 + 's';
                 home.appendChild(p);
             }
         }
 
-        // 3. 倒數計時
-        const target = new Date("2026/05/30 12:00:00").getTime();
+        // 3. 倒數計時 (更新至 2026/06/20)
+        const target = new Date("2026/06/20 12:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
             const gap = target - now;
@@ -333,14 +384,22 @@
             document.getElementById('s-val').innerText = Math.floor((gap % (1000 * 60)) / 1000);
         }, 1000);
 
-        // 4. 留言板 (LocalStorage)
+        // 4. RSVP 功能
+        function sendRSVP() {
+            const name = document.getElementById('rsvp-name').value;
+            if(!name) return alert("請輸入您的姓名");
+            document.getElementById('rsvp-container').style.display = 'none';
+            document.getElementById('rsvp-thanks').style.display = 'block';
+        }
+
+        // 5. 留言板
         function submitMsg() {
             const n = document.getElementById('uName').value;
             const m = document.getElementById('uMsg').value;
-            if(!n || !m) return alert("請填寫姓名與留言內容");
-            const data = JSON.parse(localStorage.getItem('wedding_msgs') || '[]');
+            if(!n || !m) return alert("請填寫姓名與留言");
+            const data = JSON.parse(localStorage.getItem('wedding_msgs_new') || '[]');
             data.unshift({n, m});
-            localStorage.setItem('wedding_msgs', JSON.stringify(data));
+            localStorage.setItem('wedding_msgs_new', JSON.stringify(data));
             renderMsgs();
             document.getElementById('uName').value = '';
             document.getElementById('uMsg').value = '';
@@ -348,23 +407,20 @@
 
         function renderMsgs() {
             const box = document.getElementById('msg-display');
-            const data = JSON.parse(localStorage.getItem('wedding_msgs') || '[]');
+            const data = JSON.parse(localStorage.getItem('wedding_msgs_new') || '[]');
             box.innerHTML = data.map(i => `<p style="margin-bottom:8px; border-bottom:1px dashed #eee; padding-bottom:5px;"><strong>${i.n}：</strong>${i.m}</p>`).join('');
         }
         renderMsgs();
 
-        // 5. 音樂控制
+        // 6. 音樂控制
         function handleMusic() {
             const a = document.getElementById('audioTrack');
             const b = document.getElementById('mBtn');
-            if(a.paused) {
-                a.play(); b.classList.add('rotating');
-            } else {
-                a.pause(); b.classList.remove('rotating');
-            }
+            if(a.paused) { a.play(); b.classList.add('rotating'); } 
+            else { a.pause(); b.classList.remove('rotating'); }
         }
 
-        // 6. 愛心飄落
+        // 7. 愛心與煙火
         let hCount = 0;
         function spawnHeart() {
             hCount++;
@@ -380,38 +436,28 @@
             setTimeout(() => h.remove(), 1600);
         }
 
-        // 7. 煙火特效 (已修正色碼錯誤)
         const canvas = document.getElementById('fw-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        
         function triggerFW() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            // 修正：全部使用標準十六進位色碼
             const colors = ['#FFD700', '#FF69B4', '#00FBFF', '#FF4500', '#FFFFFF'];
             for(let i=0; i<60; i++) {
                 particles.push({
-                    x: canvas.width / 2,
-                    y: canvas.height / 2,
-                    vx: (Math.random()-0.5) * 12,
-                    vy: (Math.random()-0.5) * 12,
-                    color: colors[Math.floor(Math.random()*colors.length)],
-                    alpha: 1
+                    x: canvas.width / 2, y: canvas.height / 2,
+                    vx: (Math.random()-0.5) * 12, vy: (Math.random()-0.5) * 12,
+                    color: colors[Math.floor(Math.random()*colors.length)], alpha: 1
                 });
             }
             requestAnimationFrame(updateFW);
         }
-
         function updateFW() {
             ctx.clearRect(0,0, canvas.width, canvas.height);
             particles.forEach((p, i) => {
                 p.x += p.vx; p.y += p.vy; p.alpha -= 0.015;
-                ctx.globalAlpha = p.alpha;
-                ctx.fillStyle = p.color;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, 3, 0, Math.PI*2);
-                ctx.fill();
+                ctx.globalAlpha = p.alpha; ctx.fillStyle = p.color;
+                ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, Math.PI*2); ctx.fill();
                 if(p.alpha <= 0) particles.splice(i, 1);
             });
             if(particles.length > 0) requestAnimationFrame(updateFW);
