@@ -234,7 +234,7 @@
 
     <div class="music-toggle" id="mBtn" onclick="handleMusic()">🎵</div>
     <audio id="audioTrack" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
     </audio>
 
     <canvas id="fw-canvas"></canvas>
@@ -350,7 +350,7 @@
 
         // 2. 開場
         function startInvitation() {
-            document.getElementById('envBox').classList.add('open');
+            document.getElementById('envBox').classList.add('open'); var a=document.getElementById('audioTrack'); a.play(); document.getElementById('mBtn').classList.add('rotating');
             setTimeout(() => {
                 document.getElementById('envelope-wrapper').style.transform = 'translateY(-100%)';
                 initPetals();
