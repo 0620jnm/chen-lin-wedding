@@ -116,7 +116,7 @@
             padding: 10px 30px;
         }
 
-        /* 花瓣（改為玫瑰花瓣形狀，顏色改由 JS 隨機控制） */
+        /* 花瓣（顏色改由 JS 隨機控制） */
         .petal {
             position: absolute;
             top: -50px;
@@ -430,10 +430,8 @@
                 const p = document.createElement('div');
                 p.className = 'petal';
                 p.style.left = Math.random() * 100 + 'vw';
-                // 稍微調整寬高比例，讓玫瑰花瓣看起來更真實（長度比寬度長一點）
-                const size = Math.random() * 12 + 8;
-                p.style.width = size + 'px';
-                p.style.height = (size * 1.2) + 'px'; 
+                p.style.width = (Math.random()*12 + 8) + 'px';
+                p.style.height = p.style.width;
                 
                 // 隨機從五種顏色中挑選一種作為背景色
                 p.style.background = colors[Math.floor(Math.random() * colors.length)];
@@ -468,4 +466,39 @@
         // 5. 留言板
         function submitMsg() {
             const n = document.getElementById('uName').value;
-            const m = docu
+            const m = document.getElementById('uMsg').value;
+            if(!n || !m) return alert("請填寫姓名與留言");
+            const data = JSON.parse(localStorage.getItem('wedding_msgs_new') || '[]');
+            data.unshift({n, m});
+            localStorage.setItem('wedding_msgs_new', JSON.stringify(data));
+            renderMsgs();
+            document.getElementById('uName').value = '';
+            document.getElementById('uMsg').value = '';
+        }
+
+        function renderMsgs() {
+            const box = document.getElementById('msg-display');
+            const data = JSON.parse(localStorage.getItem('wedding_msgs_new') || '[]');
+            box.innerHTML = data.map(i => 
+                `<p style="margin-bottom:8px; border-bottom:1px dashed #eee; padding-bottom:5px;">
+                    <strong>${i.n}：</strong>${i.m}
+                </p>`
+            ).join('');
+        }
+        renderMsgs();
+
+        // 6. 音樂控制
+        function handleMusic() {
+            const a = document.getElementById('audioTrack');
+            const b = document.getElementById('mBtn');
+            if(a.paused) { 
+                a.play(); 
+                b.classList.add('rotating'); 
+            } else { 
+                a.pause(); 
+                b.classList.remove('rotating'); 
+            }
+        }
+    </script>
+</body>
+</html>
