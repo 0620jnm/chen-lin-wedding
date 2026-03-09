@@ -8,12 +8,11 @@
     
     <style>
         :root {
-            /* 新主色系 */
-            --primary-gold: #C9A466;  /* 主要金色 */
-            --soft-gold:   #EBDDB5;  /* 淺金米色 */
-            --bg-soft:     #F7F6ED;  /* 頁面底色 */
-            --soft-green:  #DDE7A9;  /* 柔和淡綠 */
-            --deep-olive:  #A6A35D;  /* 深綠金強調 */
+            --primary-gold: #C9A466;
+            --soft-gold:   #EBDDB5;
+            --bg-soft:     #F7F6ED;
+            --soft-green:  #DDE7A9;
+            --deep-olive:  #A6A35D;
             --text-dark:   #4a4a4a;
         }
 
@@ -27,7 +26,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* 1. 開場信封動畫（維持原本粉色系，不改） */
+        /* 信封開場 */
         #envelope-wrapper {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -43,7 +42,7 @@
             position: relative;
             width: 280px;
             height: 180px;
-            background: #f8d7da; /* 原色不改 */
+            background: #f8d7da;
             cursor: pointer;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
@@ -54,7 +53,7 @@
             top: 0; left: 0;
             border-left: 140px solid transparent;
             border-right: 140px solid transparent;
-            border-top: 100px solid #f1aeb5; /* 原色不改 */
+            border-top: 100px solid #f1aeb5;
             transform-origin: top;
             transition: transform 0.5s;
             z-index: 2;
@@ -66,7 +65,7 @@
             position: absolute;
             top: 75px; left: 125px;
             font-size: 30px;
-            color: #d63384; /* 原色不改 */
+            color: #d63384;
             z-index: 3;
             animation: pulse 1.5s infinite;
         }
@@ -77,7 +76,7 @@
             100% { transform: scale(1); }
         }
 
-        /* 2. 內容版面 */
+        /* 區塊版面 */
         section {
             min-height: 100vh;
             display: flex;
@@ -93,7 +92,6 @@
 
         section.show { opacity: 1; transform: translateY(0); }
 
-        /* 封面（第一頁文字仍用金色，但背景依 body 保持柔和米色） */
         .names {
             font-family: 'Great Vibes', cursive;
             font-size: 3.5rem;
@@ -116,11 +114,10 @@
             padding: 10px 30px;
         }
 
-        /* 花瓣（維持粉色視覺，設定從頂部飄下） */
+        /* 櫻花花瓣（顏色改為五色隨機，背景色由 JS 指定） */
         .petal {
             position: absolute;
             top: -50px;
-            background: #ffd1dc;
             border-radius: 150% 0 150% 0;
             pointer-events: none;
             z-index: 10;
@@ -133,7 +130,6 @@
             100% { transform: translateY(120vh) rotate(360deg); opacity: 0; }
         }
 
-        /* 照片與資訊卡 */
         .photo-box {
             width: 100%; max-width: 350px;
             height: 250px;
@@ -155,7 +151,6 @@
             max-width: 500px;
         }
 
-        /* 小區塊標題或強調文字可用深綠金 */
         .info-card h2 {
             color: var(--primary-gold);
         }
@@ -170,7 +165,6 @@
             white-space: nowrap;
         }
 
-        /* 表單樣式 */
         .rsvp-form {
             text-align: left;
             margin-top: 30px;
@@ -210,7 +204,6 @@
             background: var(--deep-olive);
         }
 
-        /* 倒數 */
         .timer { 
             display: flex; 
             gap: 10px; 
@@ -231,7 +224,6 @@
             font-weight: bold; 
         }
 
-        /* 地圖 */
         .map-container {
             width: 100%; 
             max-width: 500px; 
@@ -260,7 +252,6 @@
             color: #fff;
         }
 
-        /* 音樂按鈕 */
         .music-toggle {
             position: fixed; 
             top: 20px; 
@@ -310,7 +301,6 @@
             <p style="margin-top:30px; color:var(--primary-gold); letter-spacing:2px;">誠摯邀請您見證我們的幸福</p>
         </section>
 
-        <!-- 這裡已替換為 4 張照片 -->
         <section id="sec-pics">
             <h2 style="color:var(--primary-gold); margin-bottom:20px;">Memories</h2>
             <img class="photo-box" src="images/photo1.jpg" alt="婚紗照1" style="object-fit: cover;">
@@ -346,152 +336,4 @@
                 <p style="color:#888;">台中市北屯區松竹路一段3號</p>
                 
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3639.9095592137087!2d120.7299703!3d24.1749044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34691930ddbe73b5%3A0xe9019e28fe9eeef1!2z5pqW5bGF5pel56mAL-WPsOS4reWpmuemri_nvo7lvI_lqZrnpq4v5oi25aSW5ama56auL-WPsOS4reWklueHtC_lhazlj7jogZrppJAv5pel5byP56mA5YCJL-aKk-WRqOa0vuWwjQ!5e0!3m2!1szh-TW!2stw!4v1773033816775!5m2!1szh-TW!2stw" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-                    <div class="map-info" style="text-align: center; margin-top: 15px; padding: 0 10px 15px 10px;">
-                        <p class="address-text">台中市北屯區松竹路一段3號（暖居日穀）</p>
-                        <button class="map-button" onclick="window.open('https://maps.google.com/?q=台中市北屯區松竹路一段3號', '_blank')">
-                            查看地圖
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="sec-rsvp">
-            <div class="info-card">
-                <h2>若願意出席，請填表單</h2>
-                <div class="rsvp-form" id="rsvp-container">
-                    <label>賓客姓名</label>
-                    <input type="text" id="rsvp-name" placeholder="請輸入姓名">
-
-                    <label>出席人數</label>
-                    <input type="number" id="rsvp-count" value="1" min="0">
-                    
-                    <button class="btn-gold" onclick="sendRSVP()">送出回覆</button>
-                </div>
-                <div id="rsvp-thanks" style="display:none; margin-top:20px; font-weight:bold; color:var(--deep-olive);">
-                    感謝您的回覆！我們期待與您相見 💕
-                </div>
-            </div>
-        </section>
-
-        <section id="sec-guest">
-            <h2 style="margin-bottom:20px; color:var(--primary-gold);">祝福留言</h2>
-            <div class="info-card" style="text-align: center;">
-                <input type="text" id="uName" placeholder="您的稱呼">
-                <textarea id="uMsg" rows="3" placeholder="請留下對宇杰與旻瑄的祝福..."></textarea>
-                <button class="btn-gold" onclick="submitMsg()">送出祝福</button>
-                <div id="msg-display" style="margin-top:20px; text-align: left; max-height: 200px; overflow-y: auto;"></div>
-            </div>
-        </section>
-    </main>
-
-    <script>
-        // 自動播放音樂（需用戶互動後才能播放）
-        window.addEventListener('load', () => {
-            var a = document.getElementById('audioTrack');
-            var b = document.getElementById('mBtn');
-            a.play().then(() => { 
-                b.classList.add('rotating'); 
-            }).catch(() => {});
-        });
-
-        // 1. 初始化與滾動監測
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => { 
-                if(e.isIntersecting) e.target.classList.add('show'); 
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('section').forEach(s => observer.observe(s));
-
-        function scrollToSec(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // 2. 開場
-        function startInvitation() {
-            document.getElementById('envBox').classList.add('open'); 
-            var a=document.getElementById('audioTrack'); 
-            a.play(); 
-            document.getElementById('mBtn').classList.add('rotating');
-            setTimeout(() => {
-                document.getElementById('envelope-wrapper').style.transform = 'translateY(-100%)';
-                initPetals();
-            }, 700);
-        }
-
-        function initPetals() {
-            const home = document.getElementById('sec-home');
-            for(let i=0; i<20; i++) {
-                const p = document.createElement('div');
-                p.className = 'petal';
-                p.style.left = Math.random() * 100 + 'vw';
-                p.style.width = (Math.random()*12 + 8) + 'px';
-                p.style.height = p.style.width;
-                // 設定飄落時間為 8 到 14 秒之間，讓速度變慢
-                p.style.animationDuration = (Math.random() * 6 + 8) + 's';
-                p.style.animationDelay = Math.random() * 5 + 's';
-                home.appendChild(p);
-            }
-        }
-
-        // 3. 倒數計時 (2026/06/20)
-        const target = new Date("2026/06/20 12:00:00").getTime();
-        setInterval(() => {
-            const now = new Date().getTime();
-            const gap = target - now;
-            if (gap < 0) return;
-            document.getElementById('d-val').innerText = Math.floor(gap / (1000 * 60 * 60 * 24));
-            document.getElementById('h-val').innerText = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById('m-val').innerText = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById('s-val').innerText = Math.floor((gap % (1000 * 60)) / 1000);
-        }, 1000);
-
-        // 4. RSVP 功能
-        function sendRSVP() {
-            const name = document.getElementById('rsvp-name').value;
-            if(!name) return alert("請輸入您的姓名");
-            document.getElementById('rsvp-container').style.display = 'none';
-            document.getElementById('rsvp-thanks').style.display = 'block';
-        }
-
-        // 5. 留言板
-        function submitMsg() {
-            const n = document.getElementById('uName').value;
-            const m = document.getElementById('uMsg').value;
-            if(!n || !m) return alert("請填寫姓名與留言");
-            const data = JSON.parse(localStorage.getItem('wedding_msgs_new') || '[]');
-            data.unshift({n, m});
-            localStorage.setItem('wedding_msgs_new', JSON.stringify(data));
-            renderMsgs();
-            document.getElementById('uName').value = '';
-            document.getElementById('uMsg').value = '';
-        }
-
-        function renderMsgs() {
-            const box = document.getElementById('msg-display');
-            const data = JSON.parse(localStorage.getItem('wedding_msgs_new') || '[]');
-            box.innerHTML = data.map(i => 
-                `<p style="margin-bottom:8px; border-bottom:1px dashed #eee; padding-bottom:5px;">
-                    <strong>${i.n}：</strong>${i.m}
-                </p>`
-            ).join('');
-        }
-        renderMsgs();
-
-        // 6. 音樂控制
-        function handleMusic() {
-            const a = document.getElementById('audioTrack');
-            const b = document.getElementById('mBtn');
-            if(a.paused) { 
-                a.play(); 
-                b.classList.add('rotating'); 
-            } else { 
-                a.pause(); 
-                b.classList.remove('rotating'); 
-            }
-        }
-    </script>
-</body>
-</html>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3639.9095592137087!2d120.7299703!3d24.1749044!2m3!1f0!2f0!3f0!
