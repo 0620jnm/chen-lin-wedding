@@ -432,14 +432,12 @@
                 p.style.width = (Math.random()*12 + 8) + 'px';
                 p.style.height = p.style.width;
                 
-                // 隨機顏色
-               const duration = Math.random() * 10 + 15;
-                p.style.animationDuration = duration + 's';
+                // 隨機從五種顏色中挑選一種作為背景色
+                p.style.background = colors[Math.floor(Math.random() * colors.length)];
                 
-                
-                p.style.animationDelay = '-' + (Math.random() * duration) + 's';
-                
-
+                // 原本是 8 到 14 秒，現在改成 15 到 25 秒，大幅放慢飄落速度
+                p.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                p.style.animationDelay = Math.random() * 5 + 's';
                 home.appendChild(p);
             }
         }
